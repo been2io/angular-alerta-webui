@@ -191,7 +191,8 @@ alertaControllers.controller('AlertListController', ['$scope', '$route', '$locat
         }
       });
     };
-    var refreshWithTimeout = function() {
+    refresh()
+    /*var refreshWithTimeout = function() {
       if ($scope.autoRefresh) {
         refresh();
       }
@@ -204,7 +205,7 @@ alertaControllers.controller('AlertListController', ['$scope', '$route', '$locat
         $timeout.cancel(timer);
       }
     });
-
+    */
     var severityCodeDefaults = {
       critical: 1,
       major: 2,
