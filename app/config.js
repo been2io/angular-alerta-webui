@@ -3,6 +3,7 @@
 angular.module('config', [])
   .constant('config', {
     'endpoint'    : window.location.origin,
+      'limit'     : 20,//alerts page limit
     'provider'    : "basic", // google, github, gitlab or basic
     'client_id'   : "INSERT-CLIENT-ID-HERE",
     'gitlab_url'  : "https://gitlab.com",  // replace with your gitlab server

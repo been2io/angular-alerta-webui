@@ -114,7 +114,7 @@ alertaControllers.controller('AlertListController', ['$scope', '$route', '$locat
     $scope.alertLimit = 20;
     $scope.reverse = true;
     $scope.query = {};
-    $scope.limit=3;
+    $scope.limit=config.limit;
     $scope.setService = function(s) {
       if (s) {
         $scope.environment = s.environment;
