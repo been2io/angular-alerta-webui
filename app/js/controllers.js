@@ -114,7 +114,7 @@ alertaControllers.controller('AlertListController', ['$scope', '$route', '$locat
     $scope.alertLimit = 20;
     $scope.reverse = true;
     $scope.query = {};
-
+    $scope.limit=3;
     $scope.setService = function(s) {
       if (s) {
         $scope.environment = s.environment;
@@ -141,7 +141,9 @@ alertaControllers.controller('AlertListController', ['$scope', '$route', '$locat
     $scope.refresh = function() {
       refresh();
     };
+    $scope.showMore=function () {
 
+    }
     var updateQuery = function() {
       if ($scope.service) {
         $scope.query['service'] = $scope.service
@@ -178,20 +180,33 @@ alertaControllers.controller('AlertListController', ['$scope', '$route', '$locat
         $scope.environments = response.environments;
       });
       updateQuery();
-      Alert.query($scope.query, function(response) {
-        if (response.status == 'ok') {
-          $scope.alerts = response.alerts;
-        }
-        $scope.message = response.status + ' - ' + response.message;
-        $scope.autoRefresh = response.autoRefresh;
-        if ($scope.autoRefresh) {
-          $scope.refreshText = 'Auto Update';
-        } else {
-          $scope.refreshText = 'Refresh';
-        }
-      });
+        $scope.query.page=1
+        $scope.query.limit=$scope.limit
+      $scope.queryAlerts();
     };
-    refresh()
+      $scope.queryAlerts=function () {
+          Alert.query($scope.query, function(response) {
+              if (response.status == 'ok') {
+                  var page=$scope.query.page
+                  if (page==1){
+                      $scope.alerts = response.alerts;
+                  }else {
+                      $scope.alerts=$scope.alerts.concat(response.alerts)
+                  }
+                  $scope.query.page=page+1
+
+              }
+              $scope.message = response.status + ' - ' + response.message;
+              $scope.autoRefresh = response.autoRefresh;
+              if ($scope.autoRefresh) {
+                  $scope.refreshText = 'Auto Update';
+              } else {
+                  $scope.refreshText = 'Refresh';
+              }
+          });
+      }
+
+    refresh();
     /*var refreshWithTimeout = function() {
       if ($scope.autoRefresh) {
         refresh();

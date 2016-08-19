@@ -80,7 +80,7 @@
 
   <div class="row" ng-show="alerts">
     <div class="col-md-12">
-    <button type="button" class="btn btn-default full-width" ng-click="alertLimit = alertLimit + 20">{{(alerts|filter:search).length | showing:alertLimit }}</button>
+    <button type="button" class="btn btn-default full-width" ng-click="alertLimit = alertLimit + 20;queryAlerts()">{{(alerts|filter:search).length | showing:alertLimit }}</button>
   </div>
   </div> <!-- row -->
 
