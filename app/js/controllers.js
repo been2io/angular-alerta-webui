@@ -192,6 +192,7 @@ alertaControllers.controller('AlertListController', ['$scope', '$route', '$locat
                       $scope.alerts = response.alerts;
                   }else {
                       $scope.alerts=$scope.alerts.concat(response.alerts)
+                      $scope.alertLimit=$scope.alerts.length
                   }
                   $scope.query.page=page+1
 
