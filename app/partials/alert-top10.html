@@ -7,11 +7,11 @@
           <option value="" ng-model="option" ng-change="setService(null)">Service</option>
         </select>
     </div>
-    <div class="col-md-5 col-sm-5 col-xs-12">
-      <input class="form-control input" ng-model="search" size="8" placeholder="Search">
-    </div>
     <div class="col-md-2 col-sm-2 col-xs-12">
       <select class="form-control input-sm" ng-options="item as item.name for item in show track by item.name" ng-model="status" ng-change="update()"></select>
+    </div>
+    <div class="col-md-5 col-sm-3 col-xs-12">
+      <input class="form-control input" type="date"  ng-model="from_date" ng-change="refresh()" size="8" placeholder="from"/>
     </div>
     <div class="col-md-2 col-sm-2 col-xs-12">
       <button type="button" class="btn btn-primary btn-block" ng-click="refresh()" ng-disabled="autoRefresh">{{ refreshText }}</button>
@@ -31,21 +31,21 @@
     <div class="col-xs-12">
       <table class="table">
         <tr>
+          <th>Services</th>
           <th>Event</th>
+          <th>Resources</th>
+          <th>Environments</th>
           <th>Count</th>
           <th>Duplicate Count</th>
-          <th>Environments</th>
-          <th>Services</th>
-          <th>Resources</th>
         </tr>
 
         <tr ng-repeat="event in top10 | filter:search">
-          <td>{{ event.event }}</td>
+          <td>{{ event.services.join(', ') }}</td>
+          <td>{{ event.event.join(',') }}</td>
+          <td><span ng-repeat="resource in event.resources"><a href="#/alert/{{ resource.id }}">{{ resource.resource }}</a> </span></td>
+          <td>{{ event.environments.join(', ') }}</td>
           <td>{{ event.count }}</td>
           <td>{{ event.duplicateCount }}</td>
-          <td>{{ event.environments.join(', ') }}</td>
-          <td>{{ event.services.join(', ') }}</td>
-          <td><span ng-repeat="resource in event.resources"><a href="#/alert/{{ resource.id }}">{{ resource.resource }}</a> </span></td>
         </tr>
       </table>
 

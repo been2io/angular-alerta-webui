@@ -22,7 +22,7 @@ alertaServices.factory('Alert', ['$resource', 'config',
       'delete': {method:'DELETE'},
       'tag':    {method:'POST', url: config.endpoint+'/alert/:id/tag'},
       'untag':  {method:'POST', url: config.endpoint+'/alert/:id/untag'},
-      'top10':  {method:'GET', url: config.endpoint+'/alerts/top10'}
+      'top10':  {method:'GET', url: config.endpoint+'/alerts/top10/flapping'}
     });
   }]);
 

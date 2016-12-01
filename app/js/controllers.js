@@ -429,9 +429,14 @@ alertaControllers.controller('AlertTop10Controller', ['$scope', '$location', '$t
       {name: 'Closed', value: ['closed', 'expired']}
     ];
     $scope.status = $scope.show[0];
-
+    var getFromTime = function () {
+      var now = new Date();
+      now.setMonth(now.getMonth()-1);
+      return now;
+    };
+    $scope.from_date =getFromTime();
     $scope.top10 = [];
-    $scope.query = {};
+    $scope.query = {"group-by":"_id"};
 
     $scope.setService = function(s) {
       if (s) {
@@ -485,6 +490,10 @@ alertaControllers.controller('AlertTop10Controller', ['$scope', '$location', '$t
 
     var refresh = function() {
       $scope.refreshText = 'Refreshing...';
+      if($scope.from_date)
+        $scope.query['from-date']= $scope.from_date.toISOString()
+      else
+        $scope.query['from-date']=getFromTime().toISOString()
       Count.query({status: $scope.status.value}, function(response) {
         $scope.total = response.total;
         $scope.statusCounts = response.statusCounts;
