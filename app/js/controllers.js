@@ -422,12 +422,14 @@ alertaControllers.controller('AlertTop10Controller', ['$scope', '$location', '$t
     if (search.service) {
       $scope.service = search.service;
     }
-
+    $scope.to_date=new Date()
+    $scope.severityCodes = ['all','critical','major', 'minor','warning','indeterminate','cleared','normal','ok','informational','debug','security','unknown']
     $scope.show = [
       {name: 'Open', value: ['open', 'unknown']},
       {name: 'Active', value: ['open', 'ack', 'assign']},
       {name: 'Closed', value: ['closed', 'expired']}
     ];
+    $scope.severityCode='all'
     $scope.status = $scope.show[0];
     var getFromTime = function () {
       var now = new Date();
@@ -494,6 +496,10 @@ alertaControllers.controller('AlertTop10Controller', ['$scope', '$location', '$t
         $scope.query['from-date']= $scope.from_date.toISOString()
       else
         $scope.query['from-date']=getFromTime().toISOString()
+      if($scope.to_date)
+          $scope.query['to-date']=$scope.to_date.toISOString()
+      if ($scope.severityCode!='all')
+        $scope.query['severity']=$scope.severityCode
       Count.query({status: $scope.status.value}, function(response) {
         $scope.total = response.total;
         $scope.statusCounts = response.statusCounts;

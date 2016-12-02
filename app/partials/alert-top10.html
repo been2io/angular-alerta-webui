@@ -2,16 +2,16 @@
 
   <div class="row">
     <div class="col-md-3 col-sm-3 col-xs-12">
-        <select class="form-control input-sm" ng-model="option" ng-change="setService(option)"
-        ng-options="s as s.service group by s.environment for s in services | orderBy:['environment','service']">
-          <option value="" ng-model="option" ng-change="setService(null)">Service</option>
+        <select class="form-control input-sm" ng-model="severityCode" ng-change="refresh()"
+        ng-options="s for s in severityCodes " >
         </select>
     </div>
-    <div class="col-md-2 col-sm-2 col-xs-12">
-      <select class="form-control input-sm" ng-options="item as item.name for item in show track by item.name" ng-model="status" ng-change="update()"></select>
+
+    <div class="col-md-2 col-sm-3 col-xs-12">
+      <input class="form-control input" type="date"  ng-model="from_date" size="5" ng-change="refresh()" />
     </div>
-    <div class="col-md-5 col-sm-3 col-xs-12">
-      <input class="form-control input" type="date"  ng-model="from_date" ng-change="refresh()" size="8" placeholder="from"/>
+    <div class="col-md-2 col-sm-3 col-xs-12">
+      <input class="form-control input" type="date"  ng-model="to_date" size="5" ng-change="refresh()" />
     </div>
     <div class="col-md-2 col-sm-2 col-xs-12">
       <button type="button" class="btn btn-primary btn-block" ng-click="refresh()" ng-disabled="autoRefresh">{{ refreshText }}</button>
@@ -36,7 +36,7 @@
           <th>Resources</th>
           <th>Environments</th>
           <th>Count</th>
-          <th>Duplicate Count</th>
+
         </tr>
 
         <tr ng-repeat="event in top10 | filter:search">
@@ -45,7 +45,6 @@
           <td><span ng-repeat="resource in event.resources"><a href="#/alert/{{ resource.id }}">{{ resource.resource }}</a> </span></td>
           <td>{{ event.environments.join(', ') }}</td>
           <td>{{ event.count }}</td>
-          <td>{{ event.duplicateCount }}</td>
         </tr>
       </table>
 
