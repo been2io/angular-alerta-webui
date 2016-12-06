@@ -478,11 +478,6 @@ alertaControllers.controller('AlertTop10Controller', ['$scope', '$location', '$t
       } else {
         delete $scope.query['environment'];
       }
-      if ($scope.status) {
-        $scope.query['status'] = $scope.status.value;
-      } else {
-        delete $scope.query['status'];
-      }
       $location.search($scope.query);
     };
 
@@ -500,20 +495,20 @@ alertaControllers.controller('AlertTop10Controller', ['$scope', '$location', '$t
           $scope.query['to-date']=$scope.to_date.toISOString()
       if ($scope.severityCode!='all')
         $scope.query['severity']=$scope.severityCode
-      Count.query({status: $scope.status.value}, function(response) {
-        $scope.total = response.total;
-        $scope.statusCounts = response.statusCounts;
-      });
+
       // Service.all({status: $scope.status.value}, function(response) {
       //   $scope.services = response.services;
       // });
       Environment.all({status: $scope.status.value}, function(response) {
         $scope.environments = response.environments;
+
       });
       updateQuery();
       Alert.top10($scope.query, function(response) {
         if (response.status == 'ok') {
           $scope.top10 = response.top10;
+          $scope.total = $scope.top10.length
+          $scope.statusCounts = $scope.top10.length
         }
         $scope.message = response.status + ' - ' + response.message;
         $scope.autoRefresh = response.autoRefresh;
