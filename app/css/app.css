@@ -61,11 +61,11 @@ table {
     background-color: #b94a48;
 }
 
-.label-major {
+.label-high {
     background-color: #f89406;
 }
 
-.label-minor {
+.label-average {
     background-color: #ffd700;
 }
 
@@ -76,7 +76,7 @@ table {
 .label-normal,
 .label-cleared,
 .label-ok,
-.label-informational {
+.label-information {
     background-color: #468847;
 }
 
