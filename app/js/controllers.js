@@ -73,18 +73,18 @@ alertaControllers.controller('AlertListController', ['$scope', '$route', '$locat
 
     var colorDefaults = {
       severity: {
-        critical: 'red',
-        major: 'orange',
-        minor: 'yellow',
+        disaster: 'red',
+        high: 'orange',
+        average: 'yellow',
         warning: '#1E90FF',
         indeterminate: 'silver',
         cleared: '#00CC00',
         normal: '#00CC00',
         ok: '#00CC00',
-        informational: '#00CC00',
+        information: '#00CC00',
         debug: '#7554BF',
         security: 'black',
-        unknown: 'silver'
+        notClassified: 'silver'
       },
       text: 'black',
       highlight: 'skyblue '
@@ -113,7 +113,7 @@ alertaControllers.controller('AlertListController', ['$scope', '$route', '$locat
     $scope.alerts = [];
     $scope.alertLimit = 20;
     $scope.reverse = true;
-    $scope.query = {};
+    $scope.query = {'sort-by':'severityCode'};
     $scope.limit=config.limit;
     $scope.setService = function(s) {
       if (s) {
@@ -223,15 +223,15 @@ alertaControllers.controller('AlertListController', ['$scope', '$route', '$locat
     });
     */
     var severityCodeDefaults = {
-      critical: 1,
-      major: 2,
-      minor: 3,
+      disaster: 1,
+      high: 2,
+      average: 3,
       warning: 4,
-      indeterminate: 5,
-      cleared: 5,
-      normal: 5,
-      ok: 5,
-      informational: 6,
+      information: 5,
+      indeterminate: 6,
+      cleared: 6,
+      normal: 6,
+      ok: 6,
       debug: 7,
       security: 8,
       unknown: 9
@@ -552,15 +552,15 @@ alertaControllers.controller('AlertWatchController', ['$scope', '$route', '$loca
 
     var defaults = {
       severity: {
-        critical: 'red',
-        major: 'orange',
-        minor: 'yellow',
+        disaster: 'red',
+        high: 'orange',
+        average: 'yellow',
         warning: '#1E90FF',
         indeterminate: 'silver',
         cleared: '#00CC00',
         normal: '#00CC00',
         ok: '#00CC00',
-        informational: '#00CC00',
+        information: '#00CC00',
         debug: '#7554BF',
         security: 'black',
         unknown: 'silver'
