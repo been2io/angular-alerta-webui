@@ -77,14 +77,14 @@ alertaControllers.controller('AlertListController', ['$scope', '$route', '$locat
         high: 'orange',
         average: 'yellow',
         warning: '#1E90FF',
-        indeterminate: 'silver',
+        notClassified: 'silver',
         cleared: '#00CC00',
         normal: '#00CC00',
         ok: '#00CC00',
         information: '#00CC00',
         debug: '#7554BF',
         security: 'black',
-        notClassified: 'silver'
+        unknown: 'silver'
       },
       text: 'black',
       highlight: 'skyblue '
@@ -461,7 +461,7 @@ alertaControllers.controller('AlertTop10Controller', ['$scope', '$location', '$t
       $scope.service = search.service;
     }
     $scope.dateRangeEnd=new Date()
-    $scope.severityCodes = ['all','critical','major', 'minor','warning','indeterminate','cleared','normal','ok','informational','debug','security','unknown']
+    $scope.severityCodes = ['all','disaster','high', 'average','warning','notClassified','cleared','normal','ok','information','debug','security','unknown']
     $scope.show = [
       {name: 'Open', value: ['open', 'unknown']},
       {name: 'Active', value: ['open', 'ack', 'assign']},
@@ -471,7 +471,7 @@ alertaControllers.controller('AlertTop10Controller', ['$scope', '$location', '$t
     $scope.status = $scope.show[0];
     var getFromTime = function () {
       var now = new Date();
-      now.setMonth(now.getMonth()-1);
+      now.setDate(now.getDate()-1)
       return now;
     };
     $scope.dateRangeStart =getFromTime();
@@ -594,7 +594,7 @@ alertaControllers.controller('AlertWatchController', ['$scope', '$route', '$loca
         high: 'orange',
         average: 'yellow',
         warning: '#1E90FF',
-        indeterminate: 'silver',
+        notClassified: 'silver',
         cleared: '#00CC00',
         normal: '#00CC00',
         ok: '#00CC00',
