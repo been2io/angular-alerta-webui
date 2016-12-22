@@ -3,15 +3,45 @@
   <div class="row">
     <div class="col-md-3 col-sm-3 col-xs-12">
         <select class="form-control input-sm" ng-model="severityCode" ng-change="refresh()"
-        ng-options="s for s in severityCodes " >
+        ng-options="s for s in severityCodes " style="height: 34px;line-height: 34px;">
         </select>
     </div>
 
     <div class="col-md-2 col-sm-3 col-xs-12">
-      <input class="form-control input" type="date"  ng-model="from_date" size="5" ng-change="refresh()" />
+      <div class="dropdown">
+          <a class="dropdown-toggle" id="dropdownStart" role="button" data-toggle="dropdown" data-target="#"
+             href="javascript:;">
+              <div class="input-group date">
+                  <span class="form-control">{{dateRangeStart | date: 'yyyy-MM-dd HH:mm'}}</span>
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+              </div>
+          </a>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+              <datetimepicker data-ng-model="dateRangeStart"
+                              data-datetimepicker-config="{ dropdownSelector: '#dropdownStart', renderOn: 'end-date-changed',minuteStep:1 }"
+                              data-on-set-time="startDateOnSetTime()"
+                              data-before-render="startDateBeforeRender($dates)"></datetimepicker>
+          </ul>
+      </div>
+      <!-- <input class="form-control input" type="date"  ng-model="from_date" size="5" ng-change="refresh()" /> -->
     </div>
     <div class="col-md-2 col-sm-3 col-xs-12">
-      <input class="form-control input" type="date"  ng-model="to_date" size="5" ng-change="refresh()" />
+      <div class="dropdown">
+          <a class="dropdown-toggle" id="dropdownEnd" role="button" data-toggle="dropdown" data-target="#"
+             href="javascript:;">
+              <div class="input-group date">
+                  <span class="form-control">{{dateRangeEnd | date: 'yyyy-MM-dd HH:mm'}}</span>
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+              </div>
+          </a>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+              <datetimepicker data-ng-model="dateRangeEnd"
+                              data-datetimepicker-config="{ dropdownSelector: '#dropdownEnd', renderOn: 'start-date-changed',minuteStep:1 }"
+                              data-on-set-time="endDateOnSetTime()"
+                              data-before-render="endDateBeforeRender($view, $dates, $leftDate, $upDate, $rightDate)"></datetimepicker>
+          </ul>
+      </div>
+      <!-- <input class="form-control input" type="date"  ng-model="to_date" size="5" ng-change="refresh()" /> -->
     </div>
     <div class="col-md-2 col-sm-2 col-xs-12">
       <button type="button" class="btn btn-primary btn-block" ng-click="refresh()" ng-disabled="autoRefresh">{{ refreshText }}</button>

@@ -9,6 +9,7 @@ var alertaApp = angular.module('alertaApp', [
   'alertaServices',
   'alertaDirectives',
   'alertaControllers',
+  'ui.bootstrap.datetimepicker',
   'satellizer'
 ])
 

@@ -411,6 +411,44 @@ alertaControllers.controller('AlertDetailController', ['$scope', '$route', '$rou
 
 alertaControllers.controller('AlertTop10Controller', ['$scope', '$location', '$timeout', 'Count', 'Environment', 'Service', 'Alert',
   function($scope, $location, $timeout, Count, Environment, Service, Alert){
+    $scope.endDateBeforeRender = endDateBeforeRender
+    $scope.endDateOnSetTime = endDateOnSetTime
+    $scope.startDateBeforeRender = startDateBeforeRender
+    $scope.startDateOnSetTime = startDateOnSetTime
+
+    function startDateOnSetTime () {
+      $scope.$broadcast('start-date-changed');
+      refresh();
+    }
+
+    function endDateOnSetTime () {
+      $scope.$broadcast('end-date-changed');
+      refresh();
+    }
+
+    function startDateBeforeRender ($dates) {
+      if ($scope.dateRangeEnd) {
+        var activeDate = moment($scope.dateRangeEnd);
+
+        $dates.filter(function (date) {
+          return date.localDateValue() >= activeDate.valueOf()
+        }).forEach(function (date) {
+          date.selectable = false;
+        })
+      }
+    }
+
+    function endDateBeforeRender ($view, $dates) {
+      if ($scope.dateRangeStart) {
+        var activeDate = moment($scope.dateRangeStart).subtract(1, $view).add(1, 'minute');
+
+        $dates.filter(function (date) {
+          return date.localDateValue() <= activeDate.valueOf()
+        }).forEach(function (date) {
+          date.selectable = false;
+        })
+      }
+    }
 
     $scope.autoRefresh = true;
     $scope.refreshText = 'Auto Update';
@@ -422,7 +460,7 @@ alertaControllers.controller('AlertTop10Controller', ['$scope', '$location', '$t
     if (search.service) {
       $scope.service = search.service;
     }
-    $scope.to_date=new Date()
+    $scope.dateRangeEnd=new Date()
     $scope.severityCodes = ['all','critical','major', 'minor','warning','indeterminate','cleared','normal','ok','informational','debug','security','unknown']
     $scope.show = [
       {name: 'Open', value: ['open', 'unknown']},
@@ -436,7 +474,7 @@ alertaControllers.controller('AlertTop10Controller', ['$scope', '$location', '$t
       now.setMonth(now.getMonth()-1);
       return now;
     };
-    $scope.from_date =getFromTime();
+    $scope.dateRangeStart =getFromTime();
     $scope.top10 = [];
     $scope.query = {"group-by":"_id"};
 
@@ -487,12 +525,12 @@ alertaControllers.controller('AlertTop10Controller', ['$scope', '$location', '$t
 
     var refresh = function() {
       $scope.refreshText = 'Refreshing...';
-      if($scope.from_date)
-        $scope.query['from-date']= $scope.from_date.toISOString()
+      if($scope.dateRangeStart)
+        $scope.query['from-date']= $scope.dateRangeStart.toISOString()
       else
         $scope.query['from-date']=getFromTime().toISOString()
-      if($scope.to_date)
-          $scope.query['to-date']=$scope.to_date.toISOString()
+      if($scope.dateRangeEnd)
+          $scope.query['to-date']=$scope.dateRangeEnd.toISOString()
       if ($scope.severityCode!='all')
         $scope.query['severity']=$scope.severityCode
 
