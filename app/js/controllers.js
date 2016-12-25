@@ -416,6 +416,41 @@ alertaControllers.controller('AlertTop10Controller', ['$scope', '$location', '$t
     $scope.startDateBeforeRender = startDateBeforeRender
     $scope.startDateOnSetTime = startDateOnSetTime
 
+    $scope.setDate = setDate
+
+    function setDate(text) {
+      var startDate = ''
+      var endDate = ''
+      // subtract(1, 'day')
+      switch(text) {
+        case 'Today':
+          startDate = moment().startOf('day')
+          endDate = moment().endOf('day')
+          break;
+        case 'Yesterday':
+          startDate = moment().subtract(1, 'day').startOf('day')
+          endDate = moment().subtract(1, 'day').endOf('day')
+          break;
+        case 'Last 3 Days':
+          startDate = moment().subtract(3, 'day').startOf('day')
+          endDate = moment().endOf('day')
+          break;
+        case 'Last 1 Week':
+          startDate = moment().subtract(7, 'day').startOf('day')
+          endDate = moment().endOf('day')
+          break;
+        case 'Latest 2 Weeks':
+          startDate = moment().subtract(14, 'day').startOf('day')
+          endDate = moment().endOf('day')
+          break;
+        default:
+          //什么都不做
+          return
+      }
+      console.log(startDate)
+      $scope.dateRangeStart = startDate.toISOString()
+      $scope.dateRangeEnd = endDate.toISOString()
+    }
     function startDateOnSetTime () {
       $scope.$broadcast('start-date-changed');
       refresh();
