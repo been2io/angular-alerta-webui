@@ -450,6 +450,7 @@ alertaControllers.controller('AlertTop10Controller', ['$scope', '$location', '$t
       console.log(startDate)
       $scope.dateRangeStart = startDate.toDate()
       $scope.dateRangeEnd = endDate.toDate()
+      refresh();
     }
     function startDateOnSetTime () {
       $scope.$broadcast('start-date-changed');
