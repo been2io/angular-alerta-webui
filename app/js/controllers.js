@@ -448,8 +448,9 @@ alertaControllers.controller('AlertTop10Controller', ['$scope', '$location', '$t
           return
       }
       console.log(startDate)
-      $scope.dateRangeStart = startDate.toISOString()
-      $scope.dateRangeEnd = endDate.toISOString()
+      $scope.dateRangeStart = startDate.toDate()
+      $scope.dateRangeEnd = endDate.toDate()
+      refresh();
     }
     function startDateOnSetTime () {
       $scope.$broadcast('start-date-changed');
