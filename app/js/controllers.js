@@ -499,7 +499,7 @@ alertaControllers.controller('AlertTop10Controller', ['$scope', '$location', '$t
     $scope.dateRangeEnd=new Date()
     $scope.severityCodes = ['all','disaster','high', 'average','warning','notClassified','cleared','normal','ok','information','debug','security','unknown']
     $scope.show = [
-      {name: 'Open', value: ['open', 'unknown']},
+      {name: 'NotAck', value: ['open', 'unknown','closed', 'expired']},
       {name: 'Active', value: ['open', 'ack', 'assign']},
       {name: 'Closed', value: ['closed', 'expired']}
     ];
@@ -513,7 +513,7 @@ alertaControllers.controller('AlertTop10Controller', ['$scope', '$location', '$t
     $scope.dateRangeStart =getFromTime();
     $scope.top10 = [];
     $scope.query = {"group-by":"_id"};
-
+    $scope.query["status"]=$scope.status.value
     $scope.setService = function(s) {
       if (s) {
         $scope.environment = s.environment;
