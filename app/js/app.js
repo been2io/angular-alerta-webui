@@ -54,6 +54,10 @@ alertaApp.config(['$routeProvider',
       templateUrl: 'partials/profile.html',
       controller: 'ProfileController'
     })
+    .when('/heartbeats', {
+      templateUrl: 'partials/heartbeats.html',
+      controller: 'HeartbeatsController'
+    })
     .when('/about', {
       templateUrl: 'partials/about.html',
       controller: 'AboutController'
